@@ -26,17 +26,17 @@ jobs:
             tests: false
             sconsflags: arch=arm64 production=yes swappy=yes
 
-          - name: Template arm32 (target=template_release, arch=arm32)
-            cache-name: android-template-arm32
-            target: template_release
-            tests: false
-            sconsflags: arch=arm32 swappy=yes
+          # - name: Template arm32 (target=template_release, arch=arm32)
+          #   cache-name: android-template-arm32
+          #   target: template_release
+          #   tests: false
+          #   sconsflags: arch=arm32 swappy=yes
 
-          - name: Template arm64 (target=template_release, arch=arm64)
-            cache-name: android-template-arm64
-            target: template_release
-            tests: false
-            sconsflags: arch=arm64 swappy=yes
+          # - name: Template arm64 (target=template_release, arch=arm64)
+          #   cache-name: android-template-arm64
+          #   target: template_release
+          #   tests: false
+          #   sconsflags: arch=arm64 swappy=yes
 
     steps:
       - name: Checkout
@@ -84,20 +84,19 @@ jobs:
           cache-name: ${{ matrix.cache-name }}
         continue-on-error: true
 
-      - name: Generate Godot templates
-        if: matrix.target == 'template_release'
-        run: |
-          cd platform/android/java
-          ./gradlew generateGodotTemplates
-          cd ../../..
-          ls -l bin/
+      # - name: Generate Godot templates
+      #   if: matrix.target == 'template_release'
+      #   run: |
+      #     cd platform/android/java
+      #     ./gradlew generateGodotTemplates
+      #     cd ../../..
+      #     ls -l bin/
 
       - name: Generate Godot editor
         if: matrix.target == 'editor'
         run: |
           cd platform/android/java
           ./gradlew generateGodotEditor
-          ./gradlew generateGodotHorizonOSEditor
           cd ../../..
           ls -l bin/android_editor_builds/
 
